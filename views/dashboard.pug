@@ -1,0 +1,291 @@
+doctype html
+html
+  head
+    title Quality Life
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css')
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js")
+    script(src="https://js.pusher.com/4.0/pusher.min.js")
+  body
+    nav(class="navbar navbar-expand-sm bg-light")
+      div(class="container-fluid")
+        div(class="navbar-header")
+          a(class="navbar-brand" href = "/dashboard") Dashboard
+        ul(class="navbar-nav")
+          li(class="nav-item")
+            a(class="nav-link" href="/login") Log In
+
+    br
+    h1(class = "text-center") Welcome to Quality Life
+
+    div(class = "row")
+      div(class="card col-md-6")
+        canvas(id="Temperature")
+      div(class="card col-md-6")
+        canvas(id="RH")
+      div(class="card col-md-6")
+        canvas(id="CD")
+      div(class="card col-md-6")
+        canvas(id="ND")
+
+    script.
+        let TempChart = document.getElementById('Temperature').getContext('2d');
+        let RHChart = document.getElementById('RH').getContext('2d');
+        let CDChart = document.getElementById('CD').getContext('2d');
+        let NDChart = document.getElementById('ND').getContext('2d');
+
+        let FirstChart = new Chart(TempChart, {
+        type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+        data:{
+        labels:['1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00'],
+        datasets:[{
+        label:'Degree C',
+        data:[
+        418140,
+        203499,
+        170404,
+        152634,
+        86804,
+        81360,
+        78647,
+        54189,
+        49318,
+        34068
+        ],
+        // backgroundColor: 'green',
+        backgroundColor:[
+        '#e65100',
+        '#e65100',
+        '#f57c00',
+        '#fb8c00',
+        '#ff9800',
+        '#ffa726',
+        '#ffb74d',
+        '#ffcc80',
+        '#ffe0b2',
+        '#fff3e0'
+        ],
+        borderWidth:1,
+        borderColor:'white',
+        hoverBorderWidth: 3,
+        hoverBorderColor: 'grey'
+        }]
+        },
+        options:{
+        title:{
+        display: true,
+        text: 'Real-time Temperature levels',
+        fontSize:25
+        },
+        legend:{
+        display:true,
+        position:'right',
+        labels:{
+        fontColor: '#000'
+        }
+        },
+        layout:{
+        padding:{
+        left:50,
+        right:0,
+        bottom:0,
+        top:0
+        }
+        },
+        tooltips:{
+        enabled:true
+        }
+        }
+        });
+
+        let SecondChart = new Chart(RHChart, {
+        type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+        data:{
+        labels:['1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00'],
+        datasets:[{
+        label:'Percentage',
+        data:[
+        418140,
+        203499,
+        170404,
+        152634,
+        86804,
+        81360,
+        78647,
+        54189,
+        49318,
+        34068
+        ],
+        // backgroundColor: 'green',
+        backgroundColor:[
+        '#e65100',
+        '#e65100',
+        '#f57c00',
+        '#fb8c00',
+        '#ff9800',
+        '#ffa726',
+        '#ffb74d',
+        '#ffcc80',
+        '#ffe0b2',
+        '#fff3e0'
+        ],
+        borderWidth:1,
+        borderColor:'white',
+        hoverBorderWidth: 3,
+        hoverBorderColor: 'grey'
+        }]
+        },
+        options:{
+        title:{
+        display: true,
+        text: 'Real-time RH levels',
+        fontSize:25
+        },
+        legend:{
+        display:true,
+        position:'right',
+        labels:{
+        fontColor: '#000'
+        }
+        },
+        layout:{
+        padding:{
+        left:50,
+        right:0,
+        bottom:0,
+        top:0
+        }
+        },
+        tooltips:{
+        enabled:true
+        }
+        }
+        });
+
+        let ThirdChart = new Chart(CDChart, {
+        type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+        data:{
+        labels:['1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00'],
+        datasets:[{
+        label:'PPM',
+        data:[
+        418140,
+        203499,
+        170404,
+        152634,
+        86804,
+        81360,
+        78647,
+        54189,
+        49318,
+        34068
+        ],
+        // backgroundColor: 'green',
+        backgroundColor:[
+        '#e65100',
+        '#e65100',
+        '#f57c00',
+        '#fb8c00',
+        '#ff9800',
+        '#ffa726',
+        '#ffb74d',
+        '#ffcc80',
+        '#ffe0b2',
+        '#fff3e0'
+        ],
+        borderWidth:1,
+        borderColor:'white',
+        hoverBorderWidth: 3,
+        hoverBorderColor: 'grey'
+        }]
+        },
+        options:{
+        title:{
+        display: true,
+        text: 'Real-time CO2 levels',
+        fontSize:25
+        },
+        legend:{
+        display:true,
+        position:'right',
+        labels:{
+        fontColor: '#000'
+        }
+        },
+        layout:{
+        padding:{
+        left:50,
+        right:0,
+        bottom:0,
+        top:0
+        }
+        },
+        tooltips:{
+        enabled:true
+        }
+        }
+        });
+
+        let FourthChart = new Chart(NDChart, {
+        type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+        data:{
+        labels:['1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00'],
+        datasets:[{
+        label:'PPM',
+        data:[
+        418140,
+        203499,
+        170404,
+        152634,
+        86804,
+        81360,
+        78647,
+        54189,
+        49318,
+        34068
+        ],
+        // backgroundColor: 'green',
+        backgroundColor:[
+        '#e65100',
+        '#e65100',
+        '#f57c00',
+        '#fb8c00',
+        '#ff9800',
+        '#ffa726',
+        '#ffb74d',
+        '#ffcc80',
+        '#ffe0b2',
+        '#fff3e0'
+        ],
+        borderWidth:1,
+        borderColor:'white',
+        hoverBorderWidth: 3,
+        hoverBorderColor: 'grey'
+        }]
+        },
+        options:{
+        title:{
+        display: true,
+        text: 'Real-time NO2 levels',
+        fontSize:25
+        },
+        legend:{
+        display:true,
+        position:'right',
+        labels:{
+        fontColor: '#000'
+        }
+        },
+        layout:{
+        padding:{
+        left:50,
+        right:0,
+        bottom:0,
+        top:0
+        }
+        },
+        tooltips:{
+        enabled:true
+        }
+        }
+        });
